@@ -1,9 +1,15 @@
 <div class="recipe recipe-list-item">
     <div class="recipe-list-cover">
-        <img src="{{ recipe.cover.url }}" alt="Temporario">
+        <a href="{% url "recipes:recipe" recipe.id %}">
+            <img src="{{ recipe.cover.url }}" alt="Temporario">
+        </a>
     </div>
     <div class="recipe-title-container">
-        <h2 class="recipe-title">{{ recipe.title }}</h2>
+        <h2 class="recipe-title">
+            <a href="{% url "recipes:recipe" recipe.id %}">
+                {{ recipe.title }}
+            </a>
+        </h2>
     </div>
     <div class="recipe-autor">
         <span class="recipe-autor-item">
@@ -42,10 +48,19 @@
             {{ recipe.servings }} {{ recipe.servings_unit }}
         </div>
     </div>
+
+    {% if is_datail_page is not True %}
     <footer class="recipe-footer">
-        <a href="/recipes/3/" class="recipe-red-more buttton buttton-dark button-full-width">
+        <a href="{% url "recipes:recipe" recipe.id %}" class="recipe-red-more buttton buttton-dark button-full-width">
             <i class="fa-solid fa-eye"></i>
             <span>ver mais...</span>
         </a>
     </footer>
+    {% endif %}
+
+    {% if is_datail_page is True %}
+        <div class="preparation-steps">
+            {{ recipe.preparation_steps|linebreaksbr }}
+        </div>
+    {% endif %}
 </div>
