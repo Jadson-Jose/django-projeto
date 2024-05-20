@@ -14,7 +14,11 @@
     <div class="recipe-autor">
         <span class="recipe-autor-item">
             <em class="fa fa-user"></em>
-            {{ recipe.author.first_name }} {{ recipe.author.last_name }}
+            {% if recipe.author.first_name %}
+                {{ recipe.author.first_name }} {{ recipe.author.last_name }}
+            {% else %}
+                {{ recipe.author.username }}
+            {% endif %}
         </span>
         <span class="recipe-autor-item">
             <i class="fa-solid fa-calendar"></i>
@@ -25,7 +29,7 @@
             26/05/2024
         </span> {% endcomment %}
         <span class="recipe-autor-item">
-            <a href="/recipes/category/cafe-da-manha/">
+            <a href="{% url "recipes:category" recipe.category.id %}">
                 <i class="fa-solid fa-layer-group"></i>
                 <span>{{ recipe.category.name }}</span>
             </a>
